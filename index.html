@@ -489,11 +489,14 @@ section{position:relative}
 .gar-split{display:grid;grid-template-columns:.78fr 1.22fr;gap:50px;align-items:center;margin-top:8px}
 .gar-visual{display:grid;place-items:center;min-height:300px;position:relative}
 .gar-seal{position:relative;display:inline-block}
-/* o anel gira centrado no NUMERO (nao no grupo) para nao colidir com o texto */
-.seal-ring{position:absolute;top:50%;right:-37px;width:310px;height:310px;transform:translateY(-50%);
+/* R3-1 o anel gira centrado na CIRCUNFERENCIA MINIMA do "07" (medida no browser:
+   centro +26.6px / -5.7px face ao centro antigo, raio de tinta 117.4px). Antes o "7"
+   entrava 13.8px dentro do texto. Com o centro certo sobra folga e o anel encolheu
+   310 -> 296px; abaixo disso o texto circular volta a tocar no numero. */
+.seal-ring{position:absolute;top:50%;right:-56.6px;width:296px;height:296px;transform:translateY(-51.93%);
   z-index:1;pointer-events:none}
 .gar-seal .seal-txt{position:absolute;inset:0;width:100%;height:100%;animation:sealSpin 22s linear infinite}
-.gar-seal .seal-txt text{font-family:'Inter',sans-serif;font-size:11.4px;font-weight:800;letter-spacing:3.6px;
+.gar-seal .seal-txt text{font-family:'Inter',sans-serif;font-size:9.4px;font-weight:800;letter-spacing:2.63px;
   fill:var(--neon);text-transform:uppercase}
 .gar-glow{position:absolute;inset:12px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(167,66,252,.2),transparent 66%);animation:orbBreath 5s ease-in-out infinite}
@@ -580,15 +583,11 @@ footer{background:#080808;padding:56px 0 40px;position:relative;border-top:1px s
 footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;pointer-events:none;
   background:linear-gradient(90deg,transparent,var(--neon),transparent)}
 .foot-top{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;margin-bottom:34px}
-/* O webp do logo tem fundo opaco #000006 e desenhava um rectangulo mais escuro que o
-   rodape (#080808). Em vez de o disfarcar, a placa assume-o: fundo igual ao do ficheiro,
-   moldura e brilho roxos. Roxo Opoolista — unico ponto roxo da pagina, so aqui. */
-.foot-logo{position:relative;display:grid;place-items:center;padding:16px 26px;
-  background:#000006;border:1px solid rgba(137,44,247,.3);border-radius:16px;
-  box-shadow:0 0 46px rgba(137,44,247,.2),inset 0 0 30px rgba(137,44,247,.08)}
-.foot-logo::before{content:"";position:absolute;inset:-38px -60px;border-radius:50%;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at 50% 50%,rgba(137,44,247,.16) 0%,rgba(137,44,247,.06) 46%,transparent 74%)}
-.foot-logo img{position:relative;z-index:1;width:168px;height:auto}
+/* R3-5 so o logo: o PNG original vinha sobre preto solido, foi recortado com alpha
+   (assets/logo-opoolista-alpha.webp, chave de luminancia sobre o preto do ficheiro).
+   Sem placa, sem moldura e sem halo roxo — e maior. */
+.foot-logo{position:relative;display:grid;place-items:center}
+.foot-logo img{display:block;width:280px;height:auto}
 .foot-tagline{font-size:12.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--texto2);font-weight:600}
 /* R2-6 aviso de risco: sem cartao, centrado e solto na seccao */
 .aviso{max-width:840px;margin:0 auto 28px;text-align:center;padding:0 4px}
@@ -724,7 +723,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 /* --- R2-4 estrada serpenteante COMPACTA: 3 fileiras, faixa fina e todos os
    textos ACIMA do ponto (ref. da estrada enviada pelo cliente). O viewBox
    passou de 1000x1480 para 1000x730 - metade da altura. ------------------- */
-.estrada{position:relative;z-index:2;margin:52px auto 40px;max-width:1000px;aspect-ratio:1000/730}
+.estrada{position:relative;z-index:2;margin:26px auto 40px;max-width:1000px;aspect-ratio:1000/730}
 .est-road{position:absolute;inset:0;width:100%;height:100%;display:block}
 .est-road .berma{fill:none;stroke:rgba(167,66,252,.26);stroke-width:56;stroke-linecap:round;stroke-linejoin:round}
 .est-road .asfalto{fill:none;stroke:#24242C;stroke-width:48;stroke-linecap:round;stroke-linejoin:round}
@@ -762,7 +761,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .est-p.cima .est-card{bottom:calc(50% + 38px)}
   .est-p.baixo .est-card{top:calc(50% + 38px)}
 }
-.estrada.mob{aspect-ratio:auto;display:grid;gap:20px;padding-left:66px;max-width:520px;margin:40px auto 0}
+.estrada.mob{aspect-ratio:auto;display:grid;gap:20px;padding-left:66px;max-width:520px;margin:20px auto 0}
 .estrada.mob .est-road{display:none}
 .estrada.mob::before{content:"";position:absolute;left:22px;top:10px;bottom:10px;width:42px;border-radius:21px;
   background:#24242C;box-shadow:0 0 0 1px rgba(167,66,252,.26),0 0 26px rgba(167,66,252,.14)}
@@ -775,15 +774,8 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 .estrada.mob .est-card{position:relative;left:auto;transform:none;width:100%;text-align:left;bottom:auto;top:auto}
 .estrada.mob .est-p.cima .est-card,.estrada.mob .est-p.baixo .est-card{bottom:auto;top:auto}
 
-/* --- 6 moldura por tras do grupo de cartoes "para quem e" ----------- */
-.quem-frame{position:relative;margin-top:44px;border-radius:26px;padding:34px;
-  background:linear-gradient(160deg,#140B26 0%,#1C0B3A 54%,#0F0A1C 100%);
-  box-shadow:0 26px 60px rgba(0,0,0,.55),inset 0 0 70px rgba(167,66,252,.07)}
-.quem-frame::before{content:"";position:absolute;inset:0;border-radius:26px;padding:1.5px;pointer-events:none;
-  background:linear-gradient(140deg,rgba(199,155,255,.7),rgba(167,66,252,.14) 44%,transparent 78%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
-.quem-frame .quem-grid{margin-top:0;position:relative;z-index:1}
+/* --- 6 R3-3: a moldura roxa dos cartoes "para quem e" foi retirada.
+   Os itens ficam soltos sobre o fundo da seccao. --- */
 
 /* --- 7 oferta: cartao branco atras + cartao solido a direita -------- */
 .price-wrap{display:flex;align-items:stretch;justify-content:center;max-width:1040px;margin:44px auto 0}
@@ -837,9 +829,17 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 .h2-pre.solo{font-size:.44em;letter-spacing:4.6px}
 
 /* --- 13 marca de agua atras da seccao ------------------------------ */
-.wm{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:0;pointer-events:none;
-  user-select:none;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;text-align:center;
-  line-height:.86;white-space:nowrap;font-size:min(13.4vw,196px);color:rgba(167,66,252,.13)}
+.wm{position:absolute;left:50%;top:290px;transform:translate(-50%,-50%);width:min(1180px,100%);
+  padding:0 24px;z-index:0;pointer-events:none;
+  user-select:none;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;text-align:left;
+  line-height:.86;white-space:nowrap;color:rgba(167,66,252,.13);
+  /* R3-4 arranca na margem esquerda do conteudo (mesma goteira do .wrap) e estica
+     ate perto da margem direita. 1px de corpo = 5.09px de largura da palavra.
+     top em px e nao em %: a meio da seccao os cartoes tapavam 96% da palavra (medido
+     por diff de pixeis). A seccao muda muito de altura (1070px em 1440, 1689px em 360),
+     por isso uma percentagem volta a cair sobre os cartoes no telemovel. 290px a contar
+     do topo poe a palavra na banda do cabecalho em todas as larguras: 93-97% a vista. */
+  font-size:min(19.1vw - 9.2px,216px)}
 
 /* --- responsivo dos componentes novos ------------------------------ */
 @media(max-width:1100px){
@@ -901,10 +901,9 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .div-v .dv-circle svg{width:18px}
   .sec.tem-div{padding-top:94px}
   .img-slot{aspect-ratio:16/10;margin-top:34px}
-  .quem-frame{padding:20px;border-radius:20px}
   .t-arrow{width:62px;height:62px}
   .t-arrow svg{width:26px;height:26px}
-  .seal-ring{width:242px;height:242px;right:-28px}
+  .seal-ring{width:231px;height:231px;right:-43.5px}
   .gar-7{grid-template-columns:auto 186px;column-gap:30px}
   .g7-num{width:186px;font-size:144px;letter-spacing:-6px}
   .g7-cap{gap:7px}
@@ -926,7 +925,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .acr-node.n-bot{transform:translate(-50%,-50%) translateY(99px)}
   .acr-node.n-left{transform:translate(-50%,-50%) translateX(-99px)}
   .acr-lbl{font-size:21px}
-  .seal-ring{width:198px;height:198px;right:-23px}
+  .seal-ring{width:189px;height:189px;right:-35.8px}
   .gar-7{grid-template-columns:auto 152px;column-gap:22px}
   .g7-num{width:152px;font-size:118px;letter-spacing:-5px}
   .g7-cap b{font-size:21px}
@@ -1024,7 +1023,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .dor-bridge{font-size:19px}
   .marquee{height:84px;margin-top:-42px;margin-bottom:-42px}
   .marquee-track span{font-size:12.5px;letter-spacing:1.6px;padding:0 9px}
-  .foot-logo img{width:142px}
+  .foot-logo img{width:210px}
   .tbc{font-size:12.2px;padding:6px 10px}
   .inc-list li{padding:15px 16px;gap:12px}
   .quem-item{max-width:none}
@@ -1315,7 +1314,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
           <span class="seal-ring" aria-hidden="true">
           <div class="gar-glow" aria-hidden="true"></div>
           <svg class="seal-txt" viewBox="0 0 200 200" aria-hidden="true">
-            <defs><path id="selo" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
+            <defs><path id="selo" d="M100,100 m-88.6,0 a88.6,88.6 0 1,1 177.2,0 a88.6,88.6 0 1,1 -177.2,0"/></defs>
             <text><textPath href="#selo" startOffset="0%">GARANTIA DE 7 DIAS &#183; O RISCO E MEU &#183; GARANTIA DE 7 DIAS &#183; O RISCO E MEU &#183; </textPath></text>
           </svg>
           </span>
@@ -1445,14 +1444,12 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">09</span><span class="rule"></span></div>
       <h2 class="sr-hidden">Isto foi feito <span class="neon-grad">para ti</span> se te reveres nestes pontos.</h2>
     </div>
-    <div class="quem-frame sr-hidden">
-      <div class="quem-grid">
-        <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8.6"/><polyline points="12 8 12 13 15.6 15.2"/><path d="M9 1.6h6"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Queres investir em Bitcoin, mas nunca sabes qual é o momento certo para comprar.</p></div>
-        <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4.6 13.4H11l-1 8.6 8.4-11.4H12z"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Já compraste por impulso &mdash; e ainda te lembras do que isso custou.</p></div>
-        <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6.4a2 2 0 0 1 2-2h8.6a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H8.2L4.6 16.4v-3H5a2 2 0 0 1-2-2z"/><path d="M18.2 9h1.2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-.4v3l-3.6-3h-3.6"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Estás farto de depender da opinião de influenciadores que se contradizem entre si.</p></div>
-        <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.6" y="3.4" width="14.8" height="17.4" rx="2.2"/><path d="M9.4 3.4h5.2v2.8H9.4z"/><polyline points="8.8 12 10.7 13.9 15.2 9.4"/><line x1="8.8" y1="17.4" x2="15.2" y2="17.4"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Procuras um método simples, que consigas aplicar sem passar anos a estudar análise gráfica.</p></div>
-        <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="3 17.4 9 11.4 13 15.4 21 7"/><polyline points="15.6 7 21 7 21 12.4"/><line x1="3" y1="21" x2="21" y2="21"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Queres construir património a longo prazo com decisões pensadas, e não com sorte.</p></div>
-      </div>
+    <div class="quem-grid sr-hidden">
+      <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8.6"/><polyline points="12 8 12 13 15.6 15.2"/><path d="M9 1.6h6"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Queres investir em Bitcoin, mas nunca sabes qual é o momento certo para comprar.</p></div>
+      <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4.6 13.4H11l-1 8.6 8.4-11.4H12z"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Já compraste por impulso &mdash; e ainda te lembras do que isso custou.</p></div>
+      <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6.4a2 2 0 0 1 2-2h8.6a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H8.2L4.6 16.4v-3H5a2 2 0 0 1-2-2z"/><path d="M18.2 9h1.2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-.4v3l-3.6-3h-3.6"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Estás farto de depender da opinião de influenciadores que se contradizem entre si.</p></div>
+      <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.6" y="3.4" width="14.8" height="17.4" rx="2.2"/><path d="M9.4 3.4h5.2v2.8H9.4z"/><polyline points="8.8 12 10.7 13.9 15.2 9.4"/><line x1="8.8" y1="17.4" x2="15.2" y2="17.4"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Procuras um método simples, que consigas aplicar sem passar anos a estudar análise gráfica.</p></div>
+      <div class="quem-item sr-hidden"><span class="quem-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="3 17.4 9 11.4 13 15.4 21 7"/><polyline points="15.6 7 21 7 21 12.4"/><line x1="3" y1="21" x2="21" y2="21"/></svg></span><span class="quem-linha" aria-hidden="true"></span><p>Queres construir património a longo prazo com decisões pensadas, e não com sorte.</p></div>
     </div>
     <div class="sec-cta sr-hidden"><a class="btn" href="#oferta">Este método é para mim</a></div>
   </div>
@@ -1685,7 +1682,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-logo"><img src="assets/logo-opoolista.webp" width="600" height="400" loading="lazy" alt="Opoolista"></div>
+      <div class="foot-logo"><img src="assets/logo-opoolista-alpha.webp" width="900" height="235" loading="lazy" alt="Opoolista"></div>
       <div class="foot-tagline">Método ESPERE</div>
     </div>
     <div class="aviso">
