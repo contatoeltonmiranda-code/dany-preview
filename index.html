@@ -138,9 +138,12 @@ section{position:relative}
 /* ===== BARRAS/STRIPS COM GRADIENTE EM MOVIMENTO ===== */
 .marquee{background:transparent;height:112px;overflow-x:clip;overflow-y:visible;position:relative;z-index:40;
   margin-top:-56px;margin-bottom:-56px}
+.hero-logo{margin:0 0 18px}
+.hero-logo img{display:block;width:auto;height:46px;max-width:70%;object-fit:contain}
+@media(max-width:768px){.hero-logo img{height:36px;max-width:60%}}
 .marquee-bar{position:absolute;left:50%;top:50%;width:160%;overflow:hidden;white-space:nowrap;padding:11px 0;
   box-shadow:0 8px 26px rgba(0,0,0,.6)}
-.marquee-bar.back{background:#120A22;border-top:1px solid var(--linha-forte);border-bottom:1px solid var(--linha-forte);
+.marquee-bar.back{background:#120A22;
   transform:translate(-50%,-50%) rotate(-3deg);z-index:1}
 .marquee-bar.front{background:var(--grad-neon-claro);transform:translate(-50%,-50%) rotate(3deg);z-index:2}
 .marquee-track{display:inline-flex;width:max-content;will-change:transform}
@@ -191,7 +194,7 @@ section{position:relative}
 @keyframes orbBreath{0%,100%{opacity:.3;transform:scale(.95)}50%{opacity:.65;transform:scale(1.04)}}
 
 /* ===== 02 O PROBLEMA — cartões com barra lateral shimmer + hover que desfoca os irmãos ===== */
-.sec-dor{background:var(--preto)}
+.sec-dor{background:var(--preto);overflow-x:clip}
 /* R2-1 padrao Ketox (filipe-capsula/lp-v1 .tben-*): o octogono e IRMAO do cartao,
    nunca filho. Por isso .dor-item NAO pode ter overflow:hidden - cortaria os chanfros.
    O cartao recua 38px e recebe um V na borda esquerda que encaixa na ponta do octogono. */
@@ -434,7 +437,7 @@ section{position:relative}
 .inclui-apoio{margin-top:26px;font-size:15px;color:var(--texto);line-height:1.7}
 
 /* ===== 10 DIFERENCIAIS — 4 colunas com divisórias verticais em gradiente ===== */
-.sec-dif{background:var(--grad-escuro)}
+.sec-dif{background:var(--grad-escuro);overflow-x:clip}
 .sec-dif::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;pointer-events:none;
   background:linear-gradient(90deg,transparent,var(--neon),transparent)}
 .dif-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:50px}
@@ -534,7 +537,7 @@ section{position:relative}
 .price-selos span::before{content:"\2713";color:var(--neon);font-weight:800}
 
 /* ===== 14 FAQ — details/summary nativo ===== */
-.sec-faq{background:var(--preto)}
+.sec-faq{background:var(--preto);overflow-x:clip}
 .faq-list{display:grid;gap:13px;margin-top:44px;max-width:880px;margin-left:auto;margin-right:auto}
 .faq-item{background:var(--grad-card);border:1px solid rgba(167,66,252,.22);border-radius:14px;overflow:hidden;
   transition:border-color .3s ease}
@@ -632,21 +635,51 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 @keyframes chevBob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 .sec.tem-div{padding-top:120px}
 
-/* --- 2 espaco reservado para imagem larga -------------------------- */
-.img-slot{position:relative;margin-top:44px;border-radius:22px;overflow:hidden;aspect-ratio:16/6.2;
-  background:linear-gradient(150deg,#100C1C 0%,#17092E 58%,#1E0560 100%);
-  border:1px solid var(--linha);display:grid;place-items:center;text-align:center;
-  box-shadow:0 20px 48px rgba(0,0,0,.52)}
-.img-slot::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(62% 96% at 50% 50%,rgba(167,66,252,.17),transparent 72%)}
-.img-slot::after{content:"";position:absolute;inset:14px;border-radius:15px;pointer-events:none;
-  border:1px dashed rgba(167,66,252,.32)}
-.img-slot .is-in{position:relative;z-index:1;display:grid;justify-items:center;gap:11px;padding:22px}
-.img-slot svg{width:42px;height:42px;stroke:var(--neon-claro);stroke-width:1.4;fill:none;
-  stroke-linecap:round;stroke-linejoin:round;opacity:.92}
-.img-slot .is-t{font-family:"Anton",Impact,sans-serif;font-size:15px;letter-spacing:2.6px;
-  color:var(--neon-claro);text-transform:uppercase}
-.img-slot .is-s{font-size:13.4px;color:var(--texto2);max-width:430px;line-height:1.6}
+/* --- 2 mockup do produto (R4, substitui o espaco reservado) ---------
+   O ficheiro tem o fundo removido (alpha), por isso NAO leva moldura nem
+   cartao: assenta directamente sobre o preto da seccao. O que o integra e
+   um halo roxo radial no ::before, atras da imagem, e nao uma caixa. */
+.produto-mock{position:relative;margin:36px auto 2px;display:grid;place-items:center;padding:6px 0}
+.produto-mock::before{content:"";position:absolute;top:52%;left:50%;translate:-50% -50%;
+  width:min(880px,106%);aspect-ratio:16/11;pointer-events:none;z-index:0;
+  background:radial-gradient(56% 54% at 50% 50%,rgba(167,66,252,.20),rgba(167,66,252,.07) 46%,transparent 73%);
+  animation:orbBreath 7.2s ease-in-out infinite}
+/* altura (e nao largura) e a medida que controla o impacto vertical na seccao:
+   assim o mockup cresce sem empurrar os tres cartoes da dor para fora da dobra. */
+.produto-mock img{position:relative;z-index:1;width:auto;max-width:100%;
+  height:clamp(300px,calc(28vw + 136px),560px);
+  filter:drop-shadow(0 26px 52px rgba(0,0,0,.66)) drop-shadow(0 0 34px rgba(167,66,252,.16))}
+
+/* --- R4 simbolos Bitcoin flutuantes, desfocados, atras do conteudo ---
+   Laranja original do Bitcoin (#F7931A) como contraponto ao roxo da marca.
+   Sao ornamento puro: aria-hidden, sem eventos de rato, sem seleccao e
+   sempre por baixo de .wrap (z-index:2). Tamanho, opacidade, blur, rotacao
+   e duracao variam por ocorrencia -- nenhuma e igual a outra.
+   Dois niveis: .btc leva o parallax (transform escrito por JS) e o span
+   interno leva a flutuacao em keyframes, para os dois nao colidirem. */
+.btc{position:absolute;z-index:0;pointer-events:none;user-select:none;-webkit-user-select:none;
+  line-height:1;will-change:transform;contain:layout style}
+.btc>span{display:block;font-family:'Inter',sans-serif;font-weight:800;color:#F7931A;
+  font-size:inherit;line-height:1;letter-spacing:0;
+  animation:btcFloat var(--dur,22s) ease-in-out infinite;animation-delay:var(--del,0s)}
+@keyframes btcFloat{
+  0%,100%{transform:translate3d(0,0,0) rotate(var(--rot,0deg))}
+  34%{transform:translate3d(7px,-18px,0) rotate(calc(var(--rot,0deg) + 5deg))}
+  67%{transform:translate3d(-6px,11px,0) rotate(calc(var(--rot,0deg) - 4deg))}}
+/* O blur fica sempre entre 4% e 7% do corpo de letra: acima disso o simbolo
+   deixa de se ler como um B e passa a ser so uma mancha quente. */
+/* 01 hero - o maior, na goteira do canto inferior esquerdo */
+.btc-1{left:-90px;bottom:-40px;font-size:320px;opacity:.10;filter:blur(22px);--rot:-14deg;--dur:27s}
+/* 02 dor - goteira direita, ao nivel do mockup; ecoa a moeda da imagem */
+.btc-2{right:-46px;top:36%;font-size:224px;opacity:.12;filter:blur(14px);--rot:9deg;--dur:21s;--del:-4s}
+/* 04 incluido - goteira esquerda, cortado pelo overflow-x:clip da seccao */
+.btc-3{left:-34px;top:15%;font-size:186px;opacity:.11;filter:blur(10px);--rot:-7deg;--dur:24s;--del:-9s}
+/* 07 estrada - grande e difuso, base da seccao, longe dos cartoes da estrada */
+.btc-4{left:1.5%;bottom:7%;font-size:262px;opacity:.09;filter:blur(16px);--rot:13deg;--dur:29s;--del:-13s}
+/* 11 diferenciais - o mais pequeno e o mais nitido de todos */
+.btc-5{right:-18px;top:21%;font-size:158px;opacity:.135;filter:blur(7px);--rot:-19deg;--dur:19s;--del:-6s}
+/* 14 FAQ - as perguntas so ocupam 880px, sobra goteira limpa a esquerda */
+.btc-6{left:-30px;top:26%;font-size:296px;opacity:.09;filter:blur(18px);--rot:11deg;--dur:26s;--del:-17s}
 
 /* --- 3 seta circular sobreposta aos dois cartoes -------------------- */
 .transf-grid{position:relative}
@@ -900,7 +933,13 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .div-v .dv-circle{width:46px;height:46px}
   .div-v .dv-circle svg{width:18px}
   .sec.tem-div{padding-top:94px}
-  .img-slot{aspect-ratio:16/10;margin-top:34px}
+  .produto-mock{margin-top:26px}
+  .produto-mock::before{width:min(560px,118%)}
+  /* R4 no telemovel ficam so dois simbolos Bitcoin, mais pequenos e mais
+     difusos: o ecra e estreito e seis seriam confete por cima do conteudo. */
+  .btc{display:none}
+  .btc-2{display:block;right:-40px;top:31%;font-size:168px;opacity:.105;filter:blur(11px)}
+  .btc-4{display:block;left:-30px;bottom:12%;font-size:150px;opacity:.09;filter:blur(10px)}
   .t-arrow{width:62px;height:62px}
   .t-arrow svg{width:26px;height:26px}
   .seal-ring{width:231px;height:231px;right:-43.5px}
@@ -1039,7 +1078,8 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .marquee-track{animation:none!important}
   .dor-card::before,.hero-frame::before,.prova-card::before,.price-box::before,.acr-core::after,
   .poster-frame::before,.tcol.depois::before,.hero-ring,.hero-glow,.gar-glow,.gar-seal .seal-txt,
-  .t-arrow,.t-arrow::before,.div-v .dv-circle svg,.est-p{animation:none}
+  .t-arrow,.t-arrow::before,.div-v .dv-circle svg,.est-p,
+  .btc>span,.produto-mock::before{animation:none}
 }
 </style>
 <noscript><style>.sr-hidden{opacity:1;transform:none}.est-p{opacity:1;transform:none}</style></noscript>
@@ -1093,8 +1133,10 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 <!-- gradientes SVG reutilizáveis -->
 <!-- ==================== 01 — HERO ==================== -->
 <section class="hero" id="topo">
+  <span class="btc btc-1" data-px="0.05" aria-hidden="true"><span>₿</span></span>
   <div class="wrap hero-grid">
     <div class="hero-copy sr-hidden sr-left">
+      <div class="hero-logo"><img src="assets/logo-opoolista-alpha.webp" width="900" height="235" alt="Opoolista"></div>
       <div class="sec-tag"><span class="sec-num">01</span><span class="rule"></span><span class="eyebrow">Método ESPERE</span></div>
       <h1>O Mercado Fala Antes do Fundo.<br><span class="neon-grad">Poucos Sabem Ouvir.</span></h1>
       <p class="lead">Aprende um método simples para identificar os grandes fundos do Bitcoin através de confirmações objetivas — sem emoção, sem palpites, sem depender da opinião de ninguém.</p>
@@ -1124,18 +1166,16 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 02 — O PROBLEMA ==================== -->
 <section class="sec sec-dor">
+  <span class="btc btc-2" data-px="0.09" aria-hidden="true"><span>₿</span></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">02</span><span class="rule"></span></div>
       <h2 class="sr-hidden">A maioria <span class="neon-grad">perde dinheiro</span> antes mesmo de comprar.</h2>
       <p class="lead sr-hidden">Não é o mercado que te trava. É a dúvida que aparece sempre no mesmo momento: <strong>&ldquo;Será que está bom para comprar?&rdquo;</strong></p>
     </div>
-    <div class="img-slot sr-hidden sr-scale">
-      <div class="is-in">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><circle cx="8.4" cy="10.1" r="1.9"/><path d="M3.2 17.6l4.7-4.7 3.5 3.5 3.2-3.2 6.2 6.2"/></svg>
-        <div class="is-t">Espaço reservado para imagem</div>
-        <p class="is-s">Imagem larga entra aqui &mdash; proporção 16:6, mínimo 1440&times;540&nbsp;px.</p>
-      </div>
+    <div class="produto-mock sr-hidden sr-scale">
+      <img src="assets/produto-mapa-do-fundo.webp" width="900" height="1131" loading="lazy"
+           alt="Guia &ldquo;O Mapa do Fundo&rdquo;, método visual Opoolista, ao lado de uma moeda de Bitcoin">
     </div>
     <div class="dor-grid">
       <div class="dor-item sr-hidden">
@@ -1211,6 +1251,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 04 — O QUE ESTÁ INCLUÍDO ==================== -->
 <section class="sec sec-inclui">
+  <span class="btc btc-3" data-px="0.07" aria-hidden="true"><span>₿</span></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">04</span><span class="rule"></span></div>
@@ -1338,6 +1379,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 07 — COMO FUNCIONA (ESTRADA) ==================== -->
 <section class="sec sec-fluxo">
+  <span class="btc btc-4" data-px="0.11" aria-hidden="true"><span>₿</span></span>
     <div class="graf-bg" aria-hidden="true">
       <svg viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
         <g><line class="gl" x1="0" y1="80" x2="1440" y2="80"/><line class="gl" x1="0" y1="176" x2="1440" y2="176"/><line class="gl" x1="0" y1="272" x2="1440" y2="272"/><line class="gl" x1="0" y1="368" x2="1440" y2="368"/><line class="gl" x1="0" y1="464" x2="1440" y2="464"/><line class="gl" x1="0" y1="560" x2="1440" y2="560"/><line class="gl" x1="0" y1="0" x2="0" y2="600"/><line class="gl" x1="120" y1="0" x2="120" y2="600"/><line class="gl" x1="240" y1="0" x2="240" y2="600"/><line class="gl" x1="360" y1="0" x2="360" y2="600"/><line class="gl" x1="480" y1="0" x2="480" y2="600"/><line class="gl" x1="600" y1="0" x2="600" y2="600"/><line class="gl" x1="720" y1="0" x2="720" y2="600"/><line class="gl" x1="840" y1="0" x2="840" y2="600"/><line class="gl" x1="960" y1="0" x2="960" y2="600"/><line class="gl" x1="1080" y1="0" x2="1080" y2="600"/><line class="gl" x1="1200" y1="0" x2="1200" y2="600"/><line class="gl" x1="1320" y1="0" x2="1320" y2="600"/><line class="gl" x1="1440" y1="0" x2="1440" y2="600"/></g>
@@ -1486,6 +1528,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 11 — DIFERENCIAIS ==================== -->
 <section class="sec sec-dif">
+  <span class="btc btc-5" data-px="0.06" aria-hidden="true"><span>₿</span></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">11</span><span class="rule"></span></div>
@@ -1607,6 +1650,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 14 — FAQ ==================== -->
 <section class="sec sec-faq">
+  <span class="btc btc-6" data-px="0.1" aria-hidden="true"><span>₿</span></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">14</span><span class="rule"></span></div>
@@ -1816,6 +1860,42 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
     });
   },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
   Array.prototype.forEach.call(targets,function(el){io.observe(el)});
+})();
+
+/* ===== R4 parallax discreto dos simbolos Bitcoin =====
+   O deslocamento e calculado a partir da posicao ORIGINAL de cada simbolo
+   (medida uma vez, com o transform limpo). Ler getBoundingClientRect com o
+   transform ja aplicado realimentaria o calculo e o simbolo fugia no scroll. */
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce)return;
+  var els=Array.prototype.slice.call(document.querySelectorAll('.btc'));
+  if(!els.length)return;
+  var base=[],ticking=false;
+  function medir(){
+    els.forEach(function(el){el.style.transform='none'});
+    base=els.map(function(el){
+      var r=el.getBoundingClientRect();
+      return r.top+window.pageYOffset+r.height/2;
+    });
+    aplicar();
+  }
+  function aplicar(){
+    ticking=false;
+    var vh=window.innerHeight,meio=window.pageYOffset+vh/2;
+    els.forEach(function(el,i){
+      if(!el.offsetParent)return;                 /* escondido por media query */
+      var d=base[i]-meio;
+      if(d<-vh*1.6||d>vh*1.6){el.style.transform='none';return;}
+      var k=parseFloat(el.getAttribute('data-px'))||0.06;
+      el.style.transform='translate3d(0,'+(-d*k).toFixed(1)+'px,0)';
+    });
+  }
+  function pedir(){if(!ticking){ticking=true;requestAnimationFrame(aplicar);}}
+  window.addEventListener('scroll',pedir,{passive:true});
+  var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(medir,160);},{passive:true});
+  window.addEventListener('load',medir);
+  medir();
 })();
 </script>
 </body>
