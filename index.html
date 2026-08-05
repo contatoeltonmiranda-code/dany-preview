@@ -162,9 +162,7 @@ section{position:relative}
 .hero{background:var(--preto);padding:106px 0 92px;overflow-x:clip;isolation:isolate}
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(120% 90% at 78% 42%,rgba(167,66,252,.16) 0%,rgba(167,66,252,.05) 34%,rgba(11,11,11,0) 66%)}
-.hero::after{content:"";position:absolute;left:0;bottom:0;width:62%;height:5px;z-index:3;pointer-events:none;
-  background:linear-gradient(90deg,var(--neon),var(--neon-esc) 48%,transparent);
-  filter:drop-shadow(0 0 9px rgba(167,66,252,.5))}
+/* .hero::after removido — faixa roxa aparecia atras das barras animadas (pedido do Elton) */
 .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
 .hero-copy .sec-tag{margin-bottom:22px;gap:12px}
 .hero-copy .sec-tag .rule{width:34px}
@@ -669,17 +667,17 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 /* O blur fica sempre entre 4% e 7% do corpo de letra: acima disso o simbolo
    deixa de se ler como um B e passa a ser so uma mancha quente. */
 /* 01 hero - o maior, na goteira do canto inferior esquerdo */
-.btc-1{left:-90px;bottom:-40px;font-size:320px;opacity:.10;filter:blur(22px);--rot:-14deg;--dur:27s}
+.btc-1{left:4%;bottom:-20px;font-size:300px;opacity:.30;filter:blur(9px);--rot:-14deg;--dur:27s}
 /* 02 dor - goteira direita, ao nivel do mockup; ecoa a moeda da imagem */
-.btc-2{right:-46px;top:36%;font-size:224px;opacity:.12;filter:blur(14px);--rot:9deg;--dur:21s;--del:-4s}
+.btc-2{right:6%;top:34%;font-size:230px;opacity:.32;filter:blur(6px);--rot:9deg;--dur:21s;--del:-4s}
 /* 04 incluido - goteira esquerda, cortado pelo overflow-x:clip da seccao */
-.btc-3{left:-34px;top:15%;font-size:186px;opacity:.11;filter:blur(10px);--rot:-7deg;--dur:24s;--del:-9s}
+.btc-3{left:7%;top:14%;font-size:200px;opacity:.30;filter:blur(6px);--rot:-7deg;--dur:24s;--del:-9s}
 /* 07 estrada - grande e difuso, base da seccao, longe dos cartoes da estrada */
-.btc-4{left:1.5%;bottom:7%;font-size:262px;opacity:.09;filter:blur(16px);--rot:13deg;--dur:29s;--del:-13s}
+.btc-4{left:9%;bottom:8%;font-size:250px;opacity:.26;filter:blur(8px);--rot:13deg;--dur:29s;--del:-13s}
 /* 11 diferenciais - o mais pequeno e o mais nitido de todos */
-.btc-5{right:-18px;top:21%;font-size:158px;opacity:.135;filter:blur(7px);--rot:-19deg;--dur:19s;--del:-6s}
+.btc-5{right:8%;top:20%;font-size:180px;opacity:.34;filter:blur(4px);--rot:-19deg;--dur:19s;--del:-6s}
 /* 14 FAQ - as perguntas so ocupam 880px, sobra goteira limpa a esquerda */
-.btc-6{left:-30px;top:26%;font-size:296px;opacity:.09;filter:blur(18px);--rot:11deg;--dur:26s;--del:-17s}
+.btc-6{right:10%;bottom:12%;font-size:210px;opacity:.28;filter:blur(7px);--rot:6deg;--dur:23s;--del:-11s}
 
 /* --- 3 seta circular sobreposta aos dois cartoes -------------------- */
 .transf-grid{position:relative}
@@ -865,7 +863,9 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 .wm{position:absolute;left:50%;top:290px;transform:translate(-50%,-50%);width:min(1180px,100%);
   padding:0 24px;z-index:0;pointer-events:none;
   user-select:none;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;text-align:left;
-  line-height:.86;white-space:nowrap;color:rgba(167,66,252,.13);
+  line-height:.86;white-space:nowrap;color:rgba(167,66,252,.30);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 22%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 96%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 22%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 96%);
   /* R3-4 arranca na margem esquerda do conteudo (mesma goteira do .wrap) e estica
      ate perto da margem direita. 1px de corpo = 5.09px de largura da palavra.
      top em px e nao em %: a meio da seccao os cartoes tapavam 96% da palavra (medido
@@ -939,7 +939,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
      difusos: o ecra e estreito e seis seriam confete por cima do conteudo. */
   .btc{display:none}
   .btc-2{display:block;right:-40px;top:31%;font-size:168px;opacity:.105;filter:blur(11px)}
-  .btc-4{display:block;left:-30px;bottom:12%;font-size:150px;opacity:.09;filter:blur(10px)}
+  .btc-5{display:block;left:-26px;right:auto;top:13%;font-size:156px;opacity:.10;filter:blur(10px)}
   .t-arrow{width:62px;height:62px}
   .t-arrow svg{width:26px;height:26px}
   .seal-ring{width:231px;height:231px;right:-43.5px}
