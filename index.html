@@ -159,7 +159,7 @@ section{position:relative}
 @keyframes mq-scroll-rev{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
 
 /* ===== 01 HERO ===== */
-.hero{background:var(--preto);padding:106px 0 92px;overflow-x:clip;isolation:isolate}
+.hero{background:var(--preto) url("assets/novas/bg-hero.webp") no-repeat right center/cover;padding:106px 0 92px;overflow-x:clip;isolation:isolate}
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(120% 90% at 78% 42%,rgba(167,66,252,.16) 0%,rgba(167,66,252,.05) 34%,rgba(11,11,11,0) 66%)}
 /* .hero::after removido — faixa roxa aparecia atras das barras animadas (pedido do Elton) */
@@ -621,7 +621,7 @@ section{position:relative}
 .faq-a .tbc{margin-top:10px}
 
 /* ===== 15 FECHO ===== */
-.sec-final{background:var(--grad-escuro);overflow-x:clip}
+.sec-final{background:var(--preto) url("assets/novas/bg-daniel.webp") no-repeat center/cover;overflow-x:clip}
 .sec-final::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;z-index:3;pointer-events:none;
   background:linear-gradient(90deg,transparent,var(--neon),transparent)}
 .final-split{display:grid;grid-template-columns:.82fr 1.18fr;gap:52px;align-items:center}
@@ -1210,10 +1210,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
           <text><textPath href="#orbEspere" startOffset="0">MÉTODO ESPERE&#160;&#160;&#8226;&#160;&#160;SINAIS VENCEM PREVISÕES&#160;&#160;&#8226;&#160;&#160;MÉTODO ESPERE&#160;&#160;&#8226;&#160;&#160;SINAIS VENCEM PREVISÕES&#160;&#160;&#8226;&#160;&#160;</textPath></text>
         </svg>
       </div>
-      <div class="hero-frame">
-        <img src="assets/espere-hero.webp" width="1536" height="1024" fetchpriority="high"
-             alt="Método ESPERE — key visual do método com Daniel Dias e o gráfico do Bitcoin">
-      </div>
+
     </div>
   </div>
 </section>
@@ -1237,7 +1234,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
       <p class="lead sr-hidden">Não é o mercado que te trava. É a dúvida que aparece sempre no mesmo momento: <strong>&ldquo;Será que está bom para comprar?&rdquo;</strong></p>
     </div>
     <div class="produto-mock sr-hidden sr-scale">
-      <img src="assets/produto-mapa-do-fundo.webp" width="1080" height="1080" loading="lazy"
+      <img src="assets/novas/capa.webp" width="1080" height="1080" loading="lazy"
            alt="Guia &ldquo;O Mapa do Fundo&rdquo;, método visual Opoolista, ao lado de uma moeda de Bitcoin">
     </div>
     <div class="dor-grid">
@@ -1792,14 +1789,11 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
         <h2>O Mercado Fala.<br><span class="neon-grad">Agora já sabes ouvi-lo.</span></h2>
         <p class="lead">Da próxima vez que abrires o gráfico, não vais perguntar a ninguém o que fazer. Vais abrir a tua checklist.</p>
         <div class="autor-card">
-          <div class="autor-foto">
-            <img src="assets/daniel-fato-neon.webp" width="900" height="900" loading="lazy" alt="Daniel Dias, criador do Método ESPERE">
-          </div>
+
           <div class="autor-txt">
             <strong>Daniel Dias</strong>
             <p>Está no mercado de criptomoedas há 6 anos. É consultor DeFi e gestor de pools de liquidez, e acompanha investidores em mentorias personalizadas.</p>
             <p>O Método ESPERE nasceu da parte do trabalho que se repete em todas as reuniões: a mesma pergunta, feita de formas diferentes, sobre quando é a altura certa de comprar. Este método é a resposta escrita, para que deixes de precisar de a fazer.</p>
-            <span class="tbc"><b>A confirmar</b><em>Usar foto do Daniel neste bloco de autoridade? Há fotos na pasta do Drive, mas nenhuma foi indicada para esta secção.</em></span>
           </div>
         </div>
         <a class="btn lg" href="#oferta">Começar Agora</a>
