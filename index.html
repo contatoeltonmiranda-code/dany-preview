@@ -382,6 +382,13 @@ section{position:relative}
   filter:drop-shadow(0 0 12px rgba(167,66,252,.45))}
 /* R2-5 sem cartao: circulo grande com icone no topo, aneis concentricos,
    linha pontilhada a descer e o texto centrado por baixo. */
+/* fundo em video, bem apagado: o clipe fica por baixo de um veu escuro e o texto manda sempre */
+.quem-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.quem-bg-media{position:absolute;inset:0;opacity:.2;filter:saturate(.45) hue-rotate(40deg) brightness(.9);
+  background:#0B0B0B url("assets/video/btc-circuito-poster.webp") center/cover no-repeat}
+.quem-bg video{width:100%;height:100%;object-fit:cover;display:block}
+.quem-bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(122% 92% at 50% 44%,rgba(11,11,11,.68) 0%,rgba(11,11,11,.86) 58%,#0B0B0B 100%)}
 .quem-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:40px 26px;margin-top:44px}
 .quem-item{position:relative;flex:0 0 calc(33.333% - 18px);max-width:330px;
   display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 4px 0;
@@ -432,16 +439,52 @@ section{position:relative}
   background:linear-gradient(90deg,var(--neon),var(--neon-esc) 46%,transparent);
   filter:drop-shadow(0 0 8px rgba(167,66,252,.4))}
 .inclui-split{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:start;margin-top:44px}
-.inc-list{list-style:none;display:grid;gap:12px}
-.inc-list li{position:relative;display:flex;gap:15px;align-items:flex-start;background:var(--grad-card);
-  border:1px solid rgba(167,66,252,.2);border-radius:13px;padding:17px 22px;
-  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease}
-.inc-list li:hover{transform:translateX(5px);border-color:var(--linha-forte);box-shadow:0 10px 26px rgba(0,0,0,.45)}
-.inc-n{flex-shrink:0;width:27px;height:27px;border-radius:8px;background:rgba(167,66,252,.13);
-  border:1px solid rgba(167,66,252,.35);display:grid;place-items:center;
-  font-family:'Anton',Impact,sans-serif;font-size:13px;color:var(--neon-claro);margin-top:2px;line-height:1}
-.inc-list b{color:var(--branco);font-weight:700}
-.inc-list span{font-size:14.5px;color:var(--texto);line-height:1.55}
+/* --- carrossel coverflow: 3 cartoes a vista, o do meio nitido e maior --- */
+.cf{--cf-w:330px;--cf-off:170px;--cf-h:308px;position:relative;margin-top:44px}
+/* corta os cartoes laterais no limite da coluna (mais 22px para a sombra respirar),
+   senao o cartao de tras entrava por cima da caixa da area de membros */
+.cf-stage{position:relative;height:var(--cf-h);overflow-x:clip;overflow-y:visible;overflow-clip-margin:22px}
+.cf-card{position:absolute;top:0;left:50%;width:var(--cf-w);height:var(--cf-h);margin-left:calc(var(--cf-w) / -2);
+  display:flex;flex-direction:column;overflow:hidden;border-radius:18px;background:var(--grad-card);
+  border:1px solid rgba(167,66,252,.22);box-shadow:0 18px 44px rgba(0,0,0,.6);transform-origin:50% 58%;
+  transition:transform .5s cubic-bezier(.22,.61,.36,1),opacity .45s ease,filter .45s ease,border-color .45s ease;
+  will-change:transform,opacity,filter}
+.cf-card[data-pos="0"]{border-color:var(--linha-forte);
+  box-shadow:0 26px 60px rgba(0,0,0,.72),0 0 0 1px rgba(199,155,255,.16)}
+.cf-card[data-pos]:not([data-pos="0"]){cursor:pointer}
+.cf-fig{position:relative;flex:0 0 auto;height:calc(var(--cf-w) * .58);overflow:hidden;
+  border-radius:18px 18px 0 0;background:#0B0B0B}
+.cf-fig img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.66) contrast(1.05) brightness(.92)}
+/* tinta roxa leve por cima: as 7 fotos vem de autores diferentes e assim lem como um conjunto */
+.cf-fig::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(30,5,96,.46) 0%,rgba(30,5,96,.24) 48%,rgba(11,11,11,0) 76%)}
+/* fade da metade de baixo da imagem a dissolver no corpo do cartao */
+.cf-fig::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:46%;pointer-events:none;
+  background:linear-gradient(180deg,rgba(18,10,34,0) 0%,rgba(18,10,34,.62) 52%,#141026 100%)}
+.cf-n{position:absolute;top:12px;left:12px;z-index:2;width:29px;height:29px;border-radius:9px;
+  display:grid;place-items:center;font-family:'Anton',Impact,sans-serif;font-size:13.5px;line-height:1;
+  color:var(--neon-claro);background:rgba(11,11,11,.6);border:1px solid rgba(167,66,252,.45)}
+.cf-body{position:relative;z-index:2;flex:1 1 auto;margin-top:-16px;padding:0 20px 20px;
+  display:flex;flex-direction:column;gap:8px}
+.cf-body h3{font-size:18px;line-height:1.24;color:var(--branco);letter-spacing:.2px}
+.cf-body p{font-size:13.6px;line-height:1.5;color:var(--texto);
+  display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.cf-nav{position:absolute;top:calc(var(--cf-h) / 2);transform:translateY(-50%);z-index:20;
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  background:rgba(11,11,11,.8);border:1px solid var(--linha-forte);color:var(--neon-claro);
+  transition:background .25s ease,border-color .25s ease,opacity .25s ease}
+.cf-nav svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cf-nav:hover{background:rgba(30,5,96,.92);border-color:var(--neon)}
+.cf-nav:focus-visible{outline:2px solid var(--neon-claro);outline-offset:3px}
+.cf-nav[disabled]{opacity:.28;cursor:default}
+.cf-prev{left:-4px}
+.cf-next{right:-4px}
+.cf-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.cf-dot{width:9px;height:9px;padding:0;border-radius:50%;cursor:pointer;background:rgba(167,66,252,.26);
+  border:1px solid rgba(167,66,252,.42);transition:width .25s ease,background .25s ease,border-radius .25s ease}
+.cf-dot[aria-current="true"]{width:24px;border-radius:5px;background:var(--grad-neon);border-color:transparent}
+.cf-dot:focus-visible{outline:2px solid var(--neon-claro);outline-offset:3px}
+.cf-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .membros-slot{position:relative;border-radius:18px;border:2px dashed rgba(167,66,252,.4);
   background:linear-gradient(150deg,#100C1C 0%,#17092E 100%);padding:30px 24px;text-align:center;
   min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
@@ -1064,13 +1107,26 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   .marquee-track span{font-size:12.5px;letter-spacing:1.6px;padding:0 9px}
   .foot-logo img{width:210px}
   .tbc{font-size:12.2px;padding:6px 10px}
-  .inc-list li{padding:15px 16px;gap:12px}
   .quem-item{max-width:none}
 }
+
+/* ===== CARROSSEL COVERFLOW — respostas por largura =====
+   So mexe nas variaveis do .cf: largura do cartao, salto lateral e altura da caixa. */
+@media(max-width:1000px){.cf{--cf-w:340px;--cf-off:190px;--cf-h:314px}}
+@media(max-width:768px){.cf{--cf-w:288px;--cf-off:140px;--cf-h:306px}
+  .cf-nav{width:40px;height:40px}.cf-prev{left:0}.cf-next{right:0}}
+@media(max-width:430px){.cf{--cf-w:242px;--cf-off:112px;--cf-h:270px}
+  .cf-body{padding:0 16px 16px}
+  .cf-body h3{font-size:16.5px}
+  .cf-body p{font-size:12.8px}
+  .cf-nav{width:38px;height:38px}
+  .cf-nav svg{width:16px;height:16px}}
+@media(max-width:380px){.cf{--cf-w:222px;--cf-off:100px;--cf-h:296px}}
 
 /* ===== ACESSIBILIDADE / MOVIMENTO REDUZIDO ===== */
 @media(prefers-reduced-motion:reduce){
   *{scroll-behavior:auto}
+  .cf-card,.cf-dot{transition:none}
   .sr-hidden,.sr-hidden.sr-left,.sr-hidden.sr-right,.sr-hidden.sr-scale,.sr-hidden.sr-visible{
     opacity:1;transform:none;transition:none}
   .btn{animation:none}
@@ -1264,15 +1320,42 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
       <h2 class="sr-hidden">Tudo o que recebes <span class="neon-grad">assim que entrares</span>.</h2>
     </div>
     <div class="inclui-split">
-      <ul class="inc-list sr-hidden sr-left">
-        <li><span class="inc-n">01</span><span><b>Método ESPERE completo</b> — o processo inteiro, do primeiro sinal à execução, organizado em pequenos manuais práticos.</span></li>
-        <li><span class="inc-n">02</span><span><b>Guia dos Indicadores</b> — explicação simples de cada indicador utilizado, com exemplos práticos.</span></li>
-        <li><span class="inc-n">03</span><span><b>Checklist de Compra ESPERE</b> — o passo a passo para confirmares todos os sinais antes de investires. É esta folha que decide por ti quando a emoção aperta.</span></li>
-        <li><span class="inc-n">04</span><span><b>Resumo visual do método (1 página)</b> — consulta rápida para reveres todo o processo em poucos minutos.</span></li>
-        <li><span class="inc-n">05</span><span><b>Templates de gestão de compras</b> — para registares entradas e acompanhares o teu plano de investimento.</span></li>
-        <li><span class="inc-n">06</span><span><b>Casos práticos</b> — exemplos de como o método se comportou em ciclos anteriores do Bitcoin.</span></li>
-        <li><span class="inc-n">07</span><span><b>Atualizações futuras do método</b> — acesso às melhorias e ajustes sempre que o método evoluir.</span></li>
-      </ul>
+      <div class="cf sr-hidden sr-left" id="cfInclui" role="group" aria-roledescription="carrossel" aria-label="Tudo o que recebes assim que entrares">
+        <div class="cf-stage">
+        <article class="cf-card" data-i="0">
+          <div class="cf-fig"><span class="cf-n">01</span><img src="assets/inclui/01-metodo.webp" width="800" height="480" loading="lazy" decoding="async" alt="Rei de xadrez branco iluminado sobre um tabuleiro escuro"></div>
+          <div class="cf-body"><h3>Método ESPERE completo</h3><p>O processo inteiro, do primeiro sinal à execução, organizado em pequenos manuais práticos.</p></div>
+        </article>
+        <article class="cf-card" data-i="1">
+          <div class="cf-fig"><span class="cf-n">02</span><img src="assets/inclui/02-indicadores.webp" width="800" height="480" loading="lazy" decoding="async" alt="Gráfico de velas do mercado num ecrã escuro"></div>
+          <div class="cf-body"><h3>Guia dos Indicadores</h3><p>Explicação simples de cada indicador utilizado, com exemplos práticos.</p></div>
+        </article>
+        <article class="cf-card" data-i="2">
+          <div class="cf-fig"><span class="cf-n">03</span><img src="assets/inclui/03-checklist.webp" width="800" height="480" loading="lazy" decoding="async" alt="Mão a marcar itens concluídos numa lista de verificação"></div>
+          <div class="cf-body"><h3>Checklist de Compra ESPERE</h3><p>O passo a passo para confirmares todos os sinais antes de investires. É esta folha que decide por ti quando a emoção aperta.</p></div>
+        </article>
+        <article class="cf-card" data-i="3">
+          <div class="cf-fig"><span class="cf-n">04</span><img src="assets/inclui/04-resumo.webp" width="800" height="480" loading="lazy" decoding="async" alt="Folha impressa com gráficos de barras e um gráfico circular"></div>
+          <div class="cf-body"><h3>Resumo visual do método (1 página)</h3><p>Consulta rápida para reveres todo o processo em poucos minutos.</p></div>
+        </article>
+        <article class="cf-card" data-i="4">
+          <div class="cf-fig"><span class="cf-n">05</span><img src="assets/inclui/05-templates.webp" width="800" height="480" loading="lazy" decoding="async" alt="Pessoa a trabalhar num portátil com uma folha de cálculo aberta"></div>
+          <div class="cf-body"><h3>Templates de gestão de compras</h3><p>Para registares entradas e acompanhares o teu plano de investimento.</p></div>
+        </article>
+        <article class="cf-card" data-i="5">
+          <div class="cf-fig"><span class="cf-n">06</span><img src="assets/inclui/06-casos.webp" width="800" height="480" loading="lazy" decoding="async" alt="Moeda de Bitcoin à frente de um gráfico de cotações"></div>
+          <div class="cf-body"><h3>Casos práticos</h3><p>Exemplos de como o método se comportou em ciclos anteriores do Bitcoin.</p></div>
+        </article>
+        <article class="cf-card" data-i="6">
+          <div class="cf-fig"><span class="cf-n">07</span><img src="assets/inclui/07-atualizacoes.webp" width="800" height="480" loading="lazy" decoding="async" alt="Fundo abstrato com linhas diagonais em azul e roxo"></div>
+          <div class="cf-body"><h3>Atualizações futuras do método</h3><p>Acesso às melhorias e ajustes sempre que o método evoluir.</p></div>
+        </article>
+        </div>
+        <button class="cf-nav cf-prev" type="button" aria-label="Ver item anterior" aria-controls="cfInclui"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="14.5 5 8 12 14.5 19"/></svg></button>
+        <button class="cf-nav cf-next" type="button" aria-label="Ver item seguinte" aria-controls="cfInclui"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9.5 5 16 12 9.5 19"/></svg></button>
+        <div class="cf-dots"><button class="cf-dot" type="button" data-go="0" aria-label="Ver item 01 &mdash; Método ESPERE completo" aria-current="true"></button><button class="cf-dot" type="button" data-go="1" aria-label="Ver item 02 &mdash; Guia dos Indicadores"></button><button class="cf-dot" type="button" data-go="2" aria-label="Ver item 03 &mdash; Checklist de Compra ESPERE"></button><button class="cf-dot" type="button" data-go="3" aria-label="Ver item 04 &mdash; Resumo visual do método (1 página)"></button><button class="cf-dot" type="button" data-go="4" aria-label="Ver item 05 &mdash; Templates de gestão de compras"></button><button class="cf-dot" type="button" data-go="5" aria-label="Ver item 06 &mdash; Casos práticos"></button><button class="cf-dot" type="button" data-go="6" aria-label="Ver item 07 &mdash; Atualizações futuras do método"></button></div>
+        <p class="cf-live" aria-live="polite">Item 1 de 7</p>
+      </div>
       <div class="sr-hidden sr-right">
         <div class="membros-slot">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13.5" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/><line x1="6.5" y1="8.5" x2="17.5" y2="8.5"/><line x1="6.5" y1="12.5" x2="13" y2="12.5"/></svg>
@@ -1486,6 +1569,9 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 09 — PARA QUEM É ==================== -->
 <section class="sec sec-quem">
+  <div class="quem-bg" aria-hidden="true">
+    <div class="quem-bg-media"><video class="quem-video" muted loop playsinline preload="metadata" poster="assets/video/btc-circuito-poster.webp" data-src="assets/video/btc-circuito.mp4"></video></div>
+  </div>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">09</span><span class="rule"></span></div>
@@ -1896,6 +1982,83 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(medir,160);},{passive:true});
   window.addEventListener('load',medir);
   medir();
+})();
+
+/* ===== CARROSSEL COVERFLOW — o que esta incluido =====
+   Os cartoes estao todos empilhados no centro do palco; o que muda e a distancia ao indice
+   ativo. |d|=0 fica nitido e grande, |d|=1 e 2 encolhem, desfocam e recuam. A partir de |d|>2
+   o cartao para no lugar do vizinho e desaparece, para nao haver salto quando volta a entrar.
+   Nada e removido do DOM: um leitor de ecra continua a ler os 7 itens pela ordem original. */
+(function(){
+  var cf=document.getElementById('cfInclui'); if(!cf) return;
+  var cards=Array.prototype.slice.call(cf.querySelectorAll('.cf-card'));
+  if(!cards.length) return;
+  var prev=cf.querySelector('.cf-prev'), next=cf.querySelector('.cf-next');
+  var dots=Array.prototype.slice.call(cf.querySelectorAll('.cf-dot'));
+  var live=cf.querySelector('.cf-live');
+  var idx=0, n=cards.length, meio=Math.floor(n/2);
+  function dist(i){ var d=i-idx; if(d>meio) d-=n; if(d<-meio) d+=n; return d; }
+  function render(){
+    cards.forEach(function(c,i){
+      var d=dist(i), ad=Math.abs(d), dd=Math.max(-2,Math.min(2,d));
+      c.style.transform='translate3d(calc(var(--cf-off) * '+dd+'),0,0) scale('+(1-Math.min(ad,2)*0.22)+')';
+      c.style.filter=ad?'blur('+(Math.min(ad,2)*3.2)+'px)':'none';
+      c.style.opacity=ad>2?'0':(ad===0?'1':(ad===1?'.58':'.2'));
+      c.style.zIndex=String(20-Math.min(ad,3));
+      c.style.pointerEvents=ad>1?'none':'auto';
+      if(ad===0){c.setAttribute('data-pos','0');}
+      else{c.setAttribute('data-pos',String(dd));}
+    });
+    dots.forEach(function(b,i){ if(i===idx){b.setAttribute('aria-current','true');} else {b.removeAttribute('aria-current');} });
+    if(live) live.textContent='Item '+(idx+1)+' de '+n;
+  }
+  function go(i){ i=((i%n)+n)%n; if(i===idx) return; idx=i; render(); }
+  if(prev) prev.addEventListener('click',function(){go(idx-1);});
+  if(next) next.addEventListener('click',function(){go(idx+1);});
+  dots.forEach(function(b){ b.addEventListener('click',function(){go(parseInt(b.getAttribute('data-go'),10)||0);}); });
+  cards.forEach(function(c,i){ c.addEventListener('click',function(){ if(i!==idx) go(i); }); });
+  cf.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft'){e.preventDefault();go(idx-1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();go(idx+1);}
+    else if(e.key==='Home'){e.preventDefault();go(0);}
+    else if(e.key==='End'){e.preventDefault();go(n-1);}
+  });
+  /* arrastar com o dedo (ou rato) — 42px chega para nao disparar sem querer */
+  var x0=null;
+  var stage=cf.querySelector('.cf-stage');
+  if(stage&&window.PointerEvent){
+    stage.addEventListener('pointerdown',function(e){ x0=e.clientX; });
+    stage.addEventListener('pointerup',function(e){
+      if(x0===null) return; var dx=e.clientX-x0; x0=null;
+      if(Math.abs(dx)>42) go(idx+(dx<0?1:-1));
+    });
+    stage.addEventListener('pointercancel',function(){x0=null;});
+  }
+  render();
+})();
+
+/* ===== FUNDO EM VIDEO — "isto foi feito para ti" =====
+   So carrega em ecra largo, sem prefers-reduced-motion e sem poupanca de dados.
+   Fora disso fica o poster estatico, que ja esta como background no CSS. */
+(function(){
+  var box=document.querySelector('.quem-bg'); if(!box) return;
+  var v=box.querySelector('video'); if(!v) return;
+  var mm=window.matchMedia;
+  var reduce=mm&&mm('(prefers-reduced-motion:reduce)').matches;
+  var largo=mm?mm('(min-width:1000px)').matches:false;
+  var poupa=navigator.connection&&navigator.connection.saveData;
+  if(reduce||!largo||poupa) return;
+  var src=v.getAttribute('data-src'); if(!src) return;
+  function carrega(){
+    if(v.src) return;
+    v.src=src; v.load();
+    var p=v.play(); if(p&&p.catch) p.catch(function(){});
+  }
+  if(!('IntersectionObserver' in window)){ carrega(); return; }
+  var io=new IntersectionObserver(function(entradas){
+    entradas.forEach(function(en){ if(en.isIntersecting){ carrega(); io.disconnect(); } });
+  },{rootMargin:'320px 0px'});
+  io.observe(box);
 })();
 </script>
 </body>
