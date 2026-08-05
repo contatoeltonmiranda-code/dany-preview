@@ -466,6 +466,11 @@ section{position:relative}
 /* ===== 11 PROVA — cartões com borda cónica animada ===== */
 .sec-prova{background:var(--preto);overflow:hidden}
 .prova-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+.prova-grid-shots{grid-template-columns:repeat(4,1fr);gap:16px}
+.prova-shot{margin:0;padding:0;overflow:hidden;border-radius:18px;background:#100C1C}
+.prova-shot img{display:block;width:100%;height:auto;border-radius:18px}
+@media(max-width:900px){.prova-grid-shots{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.prova-grid-shots{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}}
 .prova-card{position:relative;background:linear-gradient(150deg,#100C1C 0%,#17092E 100%);border-radius:18px;
   padding:28px 26px;overflow:hidden}
 .prova-card::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1.5px;
@@ -1571,22 +1576,23 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
       <p class="lead sr-hidden">O método não nasceu de uma opinião. Nasceu da observação do comportamento do Bitcoin em ciclos anteriores.</p>
     </div>
     <span class="tbc tbc-nota sr-hidden"><b>A confirmar</b><em>Secção inteiramente por confirmar. Nenhum nome, foto ou frase de aluno foi inventado — a estrutura está pronta e os dados concretos aguardam o Daniel.</em></span>
-    <div class="prova-grid">
-      <div class="prova-card sr-hidden">
-        <h3>Ciclo <span class="tbc"><b>A confirmar</b><em>Ano</em></span></h3>
-        <p>O que os indicadores sinalizaram nessa fase:</p>
-        <span class="tbc"><b>A confirmar</b><em>Descrição factual, sem percentagem de retorno.</em></span>
-      </div>
-      <div class="prova-card sr-hidden">
-        <h3>Ciclo <span class="tbc"><b>A confirmar</b><em>Ano</em></span></h3>
-        <p>O que os indicadores sinalizaram nessa fase:</p>
-        <span class="tbc"><b>A confirmar</b><em>Descrição factual, sem percentagem de retorno.</em></span>
-      </div>
-      <div class="prova-card sr-hidden">
-        <h3>Ciclo <span class="tbc"><b>A confirmar</b><em>Ano</em></span></h3>
-        <p>O que os indicadores sinalizaram nessa fase:</p>
-        <span class="tbc"><b>A confirmar</b><em>Descrição factual, sem percentagem de retorno.</em></span>
-      </div>
+    <div class="prova-grid prova-grid-shots">
+      <figure class="prova-card prova-shot sr-hidden">
+        <img src="assets/resultados/resultado-1.webp" width="1000" height="1600" loading="lazy" decoding="async"
+             alt="Registo de operação partilhado pelo Daniel (1 de 4)">
+      </figure>
+      <figure class="prova-card prova-shot sr-hidden">
+        <img src="assets/resultados/resultado-2.webp" width="1000" height="1600" loading="lazy" decoding="async"
+             alt="Registo de operação partilhado pelo Daniel (2 de 4)">
+      </figure>
+      <figure class="prova-card prova-shot sr-hidden">
+        <img src="assets/resultados/resultado-3.webp" width="1000" height="1600" loading="lazy" decoding="async"
+             alt="Registo de operação partilhado pelo Daniel (3 de 4)">
+      </figure>
+      <figure class="prova-card prova-shot sr-hidden">
+        <img src="assets/resultados/resultado-4.webp" width="1000" height="1600" loading="lazy" decoding="async"
+             alt="Registo de operação partilhado pelo Daniel (4 de 4)">
+      </figure>
     </div>
     <div class="prova-graf sr-hidden">
       <h3>Gráficos de apoio</h3>
