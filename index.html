@@ -654,7 +654,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
   filter:drop-shadow(0 26px 52px rgba(0,0,0,.66)) drop-shadow(0 0 34px rgba(167,66,252,.16))}
 
 /* --- R4 simbolos Bitcoin flutuantes, desfocados, atras do conteudo ---
-   Laranja original do Bitcoin (#F7931A) como contraponto ao roxo da marca.
+   Roxo da marca (#A742FC) com neon e arco de raio; cluster de 3 glifos por ponto.
    Sao ornamento puro: aria-hidden, sem eventos de rato, sem seleccao e
    sempre por baixo de .wrap (z-index:2). Tamanho, opacidade, blur, rotacao
    e duracao variam por ocorrencia -- nenhuma e igual a outra.
@@ -662,9 +662,28 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
    interno leva a flutuacao em keyframes, para os dois nao colidirem. */
 .btc{position:absolute;z-index:0;pointer-events:none;user-select:none;-webkit-user-select:none;
   line-height:1;will-change:transform;contain:layout style}
-.btc>span{display:block;font-family:'Inter',sans-serif;font-weight:800;color:#F7931A;
-  font-size:inherit;line-height:1;letter-spacing:0;
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+.btc{--btc:#A742FC;--btc-cl:#C79BFF;width:1em;height:1em;display:block}
+.btc>.b{position:absolute;display:block;font-family:'Inter',sans-serif;font-weight:800;
+  line-height:1;letter-spacing:0;color:var(--btc);
   animation:btcFloat var(--dur,22s) ease-in-out infinite;animation-delay:var(--del,0s)}
+.btc>.b-lg{left:0;top:0;font-size:1em;opacity:.42;filter:blur(calc(var(--bl,6px)*2));
+  text-shadow:0 0 .16em rgba(167,66,252,.5)}
+.btc>.b-md{left:62%;top:30%;font-size:.5em;opacity:.7;filter:blur(calc(var(--bl,6px)*.5));
+  color:var(--btc-cl);text-shadow:0 0 .14em rgba(167,66,252,.65);
+  animation-delay:calc(var(--del,0s) - 3s)}
+.btc>.b-sm{left:24%;top:74%;font-size:.28em;opacity:.95;filter:none;color:#EFE3FF;
+  text-shadow:0 0 .1em #C79BFF,0 0 .26em rgba(167,66,252,.9),0 0 .55em rgba(167,66,252,.5);
+  animation-delay:calc(var(--del,0s) - 7s)}
+.btc-arc{position:absolute;left:-9%;top:-9%;width:1.18em;height:1.18em;border-radius:50%;
+  background:conic-gradient(from var(--ang),transparent 0deg 250deg,
+    rgba(199,155,255,.85) 302deg,#F3E9FF 332deg,rgba(167,66,252,.8) 351deg,transparent 360deg);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));
+  filter:drop-shadow(0 0 7px rgba(167,66,252,.85));opacity:.9;
+  animation:btcArc var(--arc,7s) linear infinite;animation-delay:var(--del,0s)}
+@keyframes btcArc{to{--ang:360deg}}
+@media(prefers-reduced-motion:reduce){.btc>.b,.btc-arc{animation:none}}
 @keyframes btcFloat{
   0%,100%{transform:translate3d(0,0,0) rotate(var(--rot,0deg))}
   34%{transform:translate3d(7px,-18px,0) rotate(calc(var(--rot,0deg) + 5deg))}
@@ -672,17 +691,17 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 /* O blur fica sempre entre 4% e 7% do corpo de letra: acima disso o simbolo
    deixa de se ler como um B e passa a ser so uma mancha quente. */
 /* 01 hero - o maior, na goteira do canto inferior esquerdo */
-.btc-1{left:4%;bottom:-20px;font-size:300px;opacity:.20;filter:blur(9px);--rot:-14deg;--dur:27s}
+.btc-1{left:1%;bottom:6%;font-size:190px;--rot:-14deg;--dur:27s;--bl:5px;--arc:8s}
 /* 02 dor - goteira direita, ao nivel do mockup; ecoa a moeda da imagem */
-.btc-2{right:6%;top:34%;font-size:230px;opacity:.32;filter:blur(6px);--rot:9deg;--dur:21s;--del:-4s}
+.btc-2{right:8%;top:32%;font-size:190px;--rot:9deg;--dur:21s;--del:-4s;--bl:3px;--arc:6.5s}
 /* 04 incluido - goteira esquerda, cortado pelo overflow-x:clip da seccao */
-.btc-3{left:7%;top:14%;font-size:200px;opacity:.30;filter:blur(6px);--rot:-7deg;--dur:24s;--del:-9s}
+.btc-3{left:9%;top:16%;font-size:165px;--rot:-7deg;--dur:24s;--del:-9s;--bl:4px;--arc:9s}
 /* 07 estrada - grande e difuso, base da seccao, longe dos cartoes da estrada */
-.btc-4{left:9%;bottom:8%;font-size:250px;opacity:.26;filter:blur(8px);--rot:13deg;--dur:29s;--del:-13s}
+.btc-4{left:10%;bottom:16%;font-size:195px;--rot:13deg;--dur:29s;--del:-13s;--bl:6px;--arc:7.5s}
 /* 11 diferenciais - o mais pequeno e o mais nitido de todos */
-.btc-5{right:8%;top:20%;font-size:180px;opacity:.20;filter:blur(4px);--rot:-19deg;--dur:19s;--del:-6s}
+.btc-5{right:10%;top:20%;font-size:150px;--rot:-19deg;--dur:19s;--del:-6s;--bl:2px;--arc:6s}
 /* 14 FAQ - as perguntas so ocupam 880px, sobra goteira limpa a esquerda */
-.btc-6{right:10%;bottom:12%;font-size:210px;opacity:.28;filter:blur(7px);--rot:6deg;--dur:23s;--del:-11s}
+.btc-6{right:11%;bottom:18%;font-size:170px;--rot:6deg;--dur:23s;--del:-11s;--bl:4px;--arc:8.5s}
 
 /* --- 3 seta circular sobreposta aos dois cartoes -------------------- */
 .transf-grid{position:relative}
@@ -1138,7 +1157,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 <!-- gradientes SVG reutilizáveis -->
 <!-- ==================== 01 — HERO ==================== -->
 <section class="hero" id="topo">
-  <span class="btc btc-1" data-px="0.05" aria-hidden="true"><span>₿</span></span>
+  <span class="btc btc-1" data-px="0.05" aria-hidden="true"><span class="b b-lg">₿</span><span class="b b-md">₿</span><span class="b b-sm">₿</span><i class="btc-arc"></i></span>
   <div class="wrap hero-grid">
     <div class="hero-copy sr-hidden sr-left">
       <div class="hero-logo"><img src="assets/logo-opoolista-alpha.webp" width="900" height="235" alt="Opoolista"></div>
@@ -1171,7 +1190,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 02 — O PROBLEMA ==================== -->
 <section class="sec sec-dor">
-  <span class="btc btc-2" data-px="0.09" aria-hidden="true"><span>₿</span></span>
+  <span class="btc btc-2" data-px="0.09" aria-hidden="true"><span class="b b-lg">₿</span><span class="b b-md">₿</span><span class="b b-sm">₿</span><i class="btc-arc"></i></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">02</span><span class="rule"></span></div>
@@ -1256,7 +1275,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 04 — O QUE ESTÁ INCLUÍDO ==================== -->
 <section class="sec sec-inclui">
-  <span class="btc btc-3" data-px="0.07" aria-hidden="true"><span>₿</span></span>
+  <span class="btc btc-3" data-px="0.07" aria-hidden="true"><span class="b b-lg">₿</span><span class="b b-md">₿</span><span class="b b-sm">₿</span><i class="btc-arc"></i></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">04</span><span class="rule"></span></div>
@@ -1384,7 +1403,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 07 — COMO FUNCIONA (ESTRADA) ==================== -->
 <section class="sec sec-fluxo">
-  <span class="btc btc-4" data-px="0.11" aria-hidden="true"><span>₿</span></span>
+  <span class="btc btc-4" data-px="0.11" aria-hidden="true"><span class="b b-lg">₿</span><span class="b b-md">₿</span><span class="b b-sm">₿</span><i class="btc-arc"></i></span>
     <div class="graf-bg" aria-hidden="true">
       <svg viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
         <g><line class="gl" x1="0" y1="80" x2="1440" y2="80"/><line class="gl" x1="0" y1="176" x2="1440" y2="176"/><line class="gl" x1="0" y1="272" x2="1440" y2="272"/><line class="gl" x1="0" y1="368" x2="1440" y2="368"/><line class="gl" x1="0" y1="464" x2="1440" y2="464"/><line class="gl" x1="0" y1="560" x2="1440" y2="560"/><line class="gl" x1="0" y1="0" x2="0" y2="600"/><line class="gl" x1="120" y1="0" x2="120" y2="600"/><line class="gl" x1="240" y1="0" x2="240" y2="600"/><line class="gl" x1="360" y1="0" x2="360" y2="600"/><line class="gl" x1="480" y1="0" x2="480" y2="600"/><line class="gl" x1="600" y1="0" x2="600" y2="600"/><line class="gl" x1="720" y1="0" x2="720" y2="600"/><line class="gl" x1="840" y1="0" x2="840" y2="600"/><line class="gl" x1="960" y1="0" x2="960" y2="600"/><line class="gl" x1="1080" y1="0" x2="1080" y2="600"/><line class="gl" x1="1200" y1="0" x2="1200" y2="600"/><line class="gl" x1="1320" y1="0" x2="1320" y2="600"/><line class="gl" x1="1440" y1="0" x2="1440" y2="600"/></g>
@@ -1533,7 +1552,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 11 — DIFERENCIAIS ==================== -->
 <section class="sec sec-dif">
-  <span class="btc btc-5" data-px="0.06" aria-hidden="true"><span>₿</span></span>
+  <span class="btc btc-5" data-px="0.06" aria-hidden="true"><span class="b b-lg">₿</span><span class="b b-md">₿</span><span class="b b-sm">₿</span><i class="btc-arc"></i></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">11</span><span class="rule"></span></div>
@@ -1575,7 +1594,6 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
       <h2 class="sr-hidden"><span class="h2-pre">Não te peço para acreditares.</span>Peço-te para veres o <span class="neon-grad">histórico</span>.</h2>
       <p class="lead sr-hidden">O método não nasceu de uma opinião. Nasceu da observação do comportamento do Bitcoin em ciclos anteriores.</p>
     </div>
-    <span class="tbc tbc-nota sr-hidden"><b>A confirmar</b><em>Secção inteiramente por confirmar. Nenhum nome, foto ou frase de aluno foi inventado — a estrutura está pronta e os dados concretos aguardam o Daniel.</em></span>
     <div class="prova-grid prova-grid-shots">
       <figure class="prova-card prova-shot sr-hidden">
         <img src="assets/resultados/resultado-1.webp" width="1000" height="1600" loading="lazy" decoding="async"
@@ -1594,10 +1612,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
              alt="Registo de operação partilhado pelo Daniel (4 de 4)">
       </figure>
     </div>
-    <div class="prova-graf sr-hidden">
-      <h3>Gráficos de apoio</h3>
-      <span class="tbc"><b>A confirmar</b><em>Imagens dos gráficos, com a fonte visível (TradingView ou equivalente) e a data de cada leitura.</em></span>
-    </div>
+    
     <p class="prova-nota sr-hidden">Estes são registos históricos do comportamento do mercado. Rendibilidade passada não garante resultados futuros.</p>
     <div class="sec-cta sr-hidden"><a class="btn" href="#oferta">Quero aplicar isto no próximo ciclo</a></div>
   </div>
@@ -1656,7 +1671,7 @@ footer::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;p
 
 <!-- ==================== 14 — FAQ ==================== -->
 <section class="sec sec-faq">
-  <span class="btc btc-6" data-px="0.1" aria-hidden="true"><span>₿</span></span>
+  <span class="btc btc-6" data-px="0.1" aria-hidden="true"><span class="b b-lg">₿</span><span class="b b-md">₿</span><span class="b b-sm">₿</span><i class="btc-arc"></i></span>
   <div class="wrap">
     <div class="sec-head center maxw">
       <div class="sec-tag"><span class="rule"></span><span class="sec-num">14</span><span class="rule"></span></div>
