@@ -1,0 +1,2 @@
+- [QA de contraste por diff de screenshot](feedback_qa_contraste_por_diff_screenshot.md) — scroll instantaneo, animacoes congeladas e filtro de franja de antialiasing; tecto de opacidade .20 para laranja sobre preto
+- [Banco de imagens e video gratis](reference_banco_imagens_video_gratis.md) - Unsplash e Mixkit raspam-se por HTML; API do Pexels so responde a 5 termos e a de video pede chave
